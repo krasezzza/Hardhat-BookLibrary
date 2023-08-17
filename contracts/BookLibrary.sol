@@ -6,14 +6,14 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract BookLibrary is Ownable {
 
-  struct Book {
+  struct BookStruct {
     string title;
     uint8 copies;
     address[] borrowers;
   }
 
   bytes32[] public bookIds;
-  mapping(bytes32 => Book) public books;
+  mapping(bytes32 => BookStruct) public books;
   mapping(address => mapping(bytes32 => bool)) public borrowedBooks;
   mapping(bytes32 => mapping(address => bool)) private bookBorrowers;
 
@@ -24,8 +24,8 @@ contract BookLibrary is Ownable {
 
   // add new book or update existing one
   function addBook(string memory _title, uint8 _copies) public onlyOwner {
-    require(bytes(_title).length > 0, "Title cannot be an emptry string!");
-    require(_copies > 0, "Copies should be 1 or more!");
+    require(bytes(_title).length > 0, "Title cannot be an empty string!");
+    require(_copies > 0, "Copies should be greater than zero!");
 
     bytes32 _bookId = keccak256(abi.encodePacked(_title));
 
@@ -35,7 +35,7 @@ contract BookLibrary is Ownable {
       emit BookUpdated(_title, _copies);
     } else {
       address[] memory _borrowers;
-      Book memory newBook = Book(_title, _copies, _borrowers);
+      BookStruct memory newBook = BookStruct(_title, _copies, _borrowers);
 
       books[_bookId] = newBook;
       bookIds.push(_bookId);
@@ -46,10 +46,10 @@ contract BookLibrary is Ownable {
 
   // borrow a book and decrement the number of copies available
   function borrowBook(bytes32 _bookId) public {
-    Book storage book = books[_bookId];
+    BookStruct storage book = books[_bookId];
     address _bookBorrower = msg.sender;
 
-    require(book.copies > 0, "There are no available copies currently!");
+    require(book.copies > 0, "This book does not have available copies currently!");
     require(!borrowedBooks[_bookBorrower][_bookId], "You already borrowed this book!");
 
     borrowedBooks[_bookBorrower][_bookId] = true;
@@ -67,10 +67,10 @@ contract BookLibrary is Ownable {
 
   // return a book and increment the number of copies available
   function returnBook(bytes32 _bookId) public {
-    Book storage book = books[_bookId];
+    BookStruct storage book = books[_bookId];
     address _bookBorrower = msg.sender;
 
-    require(borrowedBooks[_bookBorrower][_bookId], "You already returned this book!");
+    require(borrowedBooks[_bookBorrower][_bookId], "You don't have to return this book!");
 
     borrowedBooks[_bookBorrower][_bookId] = false;
     book.copies++;
@@ -82,8 +82,8 @@ contract BookLibrary is Ownable {
       return bookIds;
   }
 
-  function getBookData(bytes32 _bookId) public view returns (Book memory) {
-    Book storage book = books[_bookId];
+  function getBookData(bytes32 _bookId) public view returns (BookStruct memory) {
+    BookStruct storage book = books[_bookId];
 
     return book;
   }
