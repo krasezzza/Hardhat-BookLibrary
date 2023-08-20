@@ -75,11 +75,6 @@ npx hardhat compile
 echo ""
 sleep 2
 
-echo "Generating the unit test code coverage..."
-npx hardhat coverage
-echo ""
-sleep 2
-
 echo "Starting up the localhost network..."
 echo ""
 sleep 2
