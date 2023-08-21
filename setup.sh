@@ -55,6 +55,14 @@ then
   sleep 1
 fi
 
+if [ -f "./hardhat.log" ];
+then
+  echo "Clearing the 'hardhat.log' file..."
+  rm -f ./hardhat.log
+  echo ""
+  sleep 1
+fi
+
 if [ -f "./.env" ];
 then
   echo "ENV file was already configured!"
@@ -76,6 +84,15 @@ echo ""
 sleep 2
 
 echo "Starting up the localhost network..."
+npx hardhat node &> ./hardhat.log &
+echo "(Running server in the background!)"
 echo ""
 sleep 2
-npx hardhat node
+
+echo "Executing all the tests..."
+npx hardhat test
+echo ""
+sleep 2
+
+# Kill the background hardhat processes
+sudo kill -9 `pidof -s node`
