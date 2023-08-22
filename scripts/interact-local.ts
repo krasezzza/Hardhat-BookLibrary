@@ -1,5 +1,5 @@
 import { ethers } from "hardhat";
-import { setTimeout } from "timers/promises";
+// import { setTimeout } from "timers/promises";
 import BookLibrary from "../artifacts/contracts/BookLibrary.sol/BookLibrary.json";
 
 const NETWORK_URL = "http://localhost:8545";
@@ -25,7 +25,7 @@ const run = async () => {
     console.log("Transaction of addBook() failed!");
     return;
   }
-  await setTimeout(3000);
+  // await setTimeout(3000);
 
   // 2. Checks all available books
   const booksList = await bookLibraryContract.getBooksList();
@@ -54,7 +54,7 @@ const run = async () => {
       return;
     }
   }
-  await setTimeout(3000);
+  // await setTimeout(3000);
 
   // Fetch again the state data
   bookResult = await bookLibraryContract.getBookData(firstBookId);
@@ -80,7 +80,7 @@ const run = async () => {
     console.log("Transaction of returnBook() failed!");
     return;
   }
-  await setTimeout(3000);
+  // await setTimeout(3000);
 
   // Fetch again the state data
   bookResult = await bookLibraryContract.getBookData(firstBookId);

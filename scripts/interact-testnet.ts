@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ethers, config } from "hardhat";
-import { setTimeout } from "timers/promises";
+// import { setTimeout } from "timers/promises";
 import BookLibrary from "../artifacts/contracts/BookLibrary.sol/BookLibrary.json";
 
 const NETWORK_URL = config.networks.sepolia.url;
@@ -26,7 +26,7 @@ const run = async () => {
     console.log("Transaction of addBook() failed!");
     return;
   }
-  await setTimeout(6000);
+  // await setTimeout(6000);
 
   // 2. Checks all available books
   const booksList = await bookLibraryContract.getBooksList();
@@ -55,7 +55,7 @@ const run = async () => {
       return;
     }
   }
-  await setTimeout(6000);
+  // await setTimeout(6000);
 
   // Fetch again the state data
   bookResult = await bookLibraryContract.getBookData(firstBookId);
@@ -81,7 +81,7 @@ const run = async () => {
     console.log("Transaction of returnBook() failed!");
     return;
   }
-  await setTimeout(6000);
+  // await setTimeout(6000);
 
   // Fetch again the state data
   bookResult = await bookLibraryContract.getBookData(firstBookId);
