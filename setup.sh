@@ -83,16 +83,12 @@ npx hardhat compile
 echo ""
 sleep 2
 
+echo "Running the hardhat test coverage..."
+npx hardhat coverage
+echo ""
+sleep 2
+
 echo "Starting up the localhost network..."
-npx hardhat node &> ./hardhat.log &
-echo "(Running server in the background!)"
+npx hardhat node
 echo ""
 sleep 2
-
-echo "Executing all the tests..."
-npx hardhat test
-echo ""
-sleep 2
-
-# Kill the background hardhat processes
-sudo kill -9 `pidof -s node`

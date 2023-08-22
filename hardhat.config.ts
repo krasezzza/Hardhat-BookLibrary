@@ -74,6 +74,9 @@ const config: HardhatUserConfig = {
     localhost: {
       url: `http://localhost:8545`,
     },
+    hardhat: {
+      // ...
+    },
     sepolia: {
       url: `https://sepolia.infura.io/v3/${process.env.INFURA_API_KEY}`,
       accounts: [
@@ -81,7 +84,6 @@ const config: HardhatUserConfig = {
       ]
     },
   },
-  defaultNetwork: "localhost",
   etherscan: {
     apiKey: "DR7FQRE2X84B59DC78N12JHSU5F9UACQ9W",
   }

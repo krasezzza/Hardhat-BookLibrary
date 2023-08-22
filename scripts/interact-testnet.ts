@@ -1,10 +1,9 @@
+// @ts-nocheck
 import { ethers, config } from "hardhat";
 import { setTimeout } from "timers/promises";
 import BookLibrary from "../artifacts/contracts/BookLibrary.sol/BookLibrary.json";
 
-// @ts-ignore
 const NETWORK_URL = config.networks.sepolia.url;
-// @ts-ignore
 const PK = config.networks.sepolia.accounts[0];
 const CONTRACT_ADDRESS = "0x7a445f21046A6Cad3656b97D584EE0bb4F61011A"; // Sepolia Addr
 
@@ -13,7 +12,7 @@ const run = async () => {
   const wallet = new ethers.Wallet(PK, provider);
   const userAddress = wallet.address;
 
-  const balance = await provider.getBalance(wallet.address);
+  const balance = await provider.getBalance(userAddress);
   console.log("Wallet balance:", ethers.formatEther(balance), "ETH");
 
   // Init the contract

@@ -7,8 +7,8 @@ export async function main(_privateKey: any) {
 
   const bookLibraryFactory = await ethers.getContractFactory("BookLibrary");
   const bookLibrary = await bookLibraryFactory.connect(wallet).deploy();
-
   await bookLibrary.waitForDeployment();
+
   console.log("BookLibrary was deployed to:", bookLibrary.target);
 
   // Wait for 5 blocks

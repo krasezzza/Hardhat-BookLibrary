@@ -4,14 +4,14 @@ import BookLibrary from "../artifacts/contracts/BookLibrary.sol/BookLibrary.json
 
 const NETWORK_URL = "http://localhost:8545";
 const PK = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"; // Account #0
-const CONTRACT_ADDRESS = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0";
+const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
 const run = async () => {
   const provider = new ethers.JsonRpcProvider(NETWORK_URL);
   const wallet = new ethers.Wallet(PK, provider);
   const userAddress = wallet.address;
 
-  const balance = await provider.getBalance(wallet.address);
+  const balance = await provider.getBalance(userAddress);
   console.log("Wallet balance:", ethers.formatEther(balance), "ETH");
 
   // Init the contract
