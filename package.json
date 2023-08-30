@@ -4,7 +4,8 @@
   "description": "Create first smart contract in Solidity.",
   "main": "index.js",
   "scripts": {
-    "test": "npx hardhat test"
+    "test": "npx hardhat test",
+    "festart": "npm start --prefix frontend"
   },
   "author": "Krasimir Tsvetanov",
   "license": "ISC",

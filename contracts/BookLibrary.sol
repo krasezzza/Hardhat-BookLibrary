@@ -80,13 +80,15 @@ contract BookLibrary is Ownable {
   }
 
   function getBooksList() public view returns (bytes32[] memory) {
-      return bookIds;
+    return bookIds;
   }
 
   function getBookData(bytes32 _bookId) public view returns (BookStruct memory) {
-    BookStruct storage book = books[_bookId];
+    return books[_bookId];
+  }
 
-    return book;
+  function isBookBorrowed(address _bookBorrower, bytes32 _bookId) public view returns (bool) {
+    return borrowedBooks[_bookBorrower][_bookId];
   }
 
 }

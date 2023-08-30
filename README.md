@@ -3,8 +3,13 @@
 Smart contract for managing a book library.
 
 ```shell
+# configure the project with one command
 bash setup.sh
 
+# start-up the frontend development server
+npm run festart
+
+# helper commands for hardhat environment
 npx hardhat help
 npx hardhat test
 REPORT_GAS=true npx hardhat test
@@ -18,9 +23,11 @@ npx hardhat deploy-local
 npx hardhat deploy-testnet --network sepolia
 ```
 
-Please create an ***.env*** file as a copy of the ***env.example*** and populate your INFURA_API_KEY and SEPOLIA_PRIVATE_KEY in order to use the deployment task for the Sepolia Testnet!
+Please create an ***.env*** file as a copy of the ***env.example*** and populate your INFURA_API_KEY and SEPOLIA_PRIVATE_KEY in order to use the deployment task for the Sepolia Testnet.
 
-P.S. the ***setup.sh*** script will create the .env file from the env.example automatically :)
+Please also create a ***frontend/.env*** file as a copy of the ***frontend/env.example*** and populate your REACT_APP_INFURA_API_KEY in order to connect to the provider successfully.
+
+P.S. the ***setup.sh*** script will create the .env files from the env.example automatically and you have to populate them with a relevant data :)
 
 Sepolia Etherscan link to the verified contract:
-[https://sepolia.etherscan.io/tx/0xe1fb74f3dc9ee58214e903e2c0f80947c853815c51366d17dd1f194502b9ef51](https://sepolia.etherscan.io/tx/0xe1fb74f3dc9ee58214e903e2c0f80947c853815c51366d17dd1f194502b9ef51)
+[https://sepolia.etherscan.io/tx/0xd2b25d4ebbfa679edac5d434afce5f67b6073f4176afc6255df10f7bdc364447](https://sepolia.etherscan.io/tx/0xd2b25d4ebbfa679edac5d434afce5f67b6073f4176afc6255df10f7bdc364447)

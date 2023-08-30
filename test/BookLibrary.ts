@@ -261,8 +261,10 @@ describe("BookLibrary", () => {
 
       await bookLibrary.connect(addr1).borrowBook(_bookId);
       const _book = await bookLibrary.getBookData(_bookId);
+      const _isBookBorrowed = await bookLibrary.isBookBorrowed(addr1, _bookId);
 
       expect(_book.copies).to.equal(1);
+      expect(_isBookBorrowed).to.equal(true);
     });
 
     it("Should increase the copies of a returned book", async () => {
@@ -276,13 +278,17 @@ describe("BookLibrary", () => {
 
       await bookLibrary.connect(addr1).borrowBook(_bookId);
       let _book = await bookLibrary.getBookData(_bookId);
+      let _isBookBorrowed = await bookLibrary.isBookBorrowed(addr1, _bookId);
 
       expect(_book.copies).to.equal(1);
+      expect(_isBookBorrowed).to.equal(true);
 
       await bookLibrary.connect(addr1).returnBook(_bookId);
       _book = await bookLibrary.getBookData(_bookId);
+      _isBookBorrowed = await bookLibrary.isBookBorrowed(addr1, _bookId);
 
       expect(_book.copies).to.equal(2);
+      expect(_isBookBorrowed).to.equal(false);
     });
 
     it("Should store the user address when borrowing a book", async () => {
