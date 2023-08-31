@@ -136,7 +136,12 @@ then
   sleep 2
 fi
 
-echo "Starting up the localhost network..."
-npx hardhat node
+# echo "Starting up the localhost network..."
+# npx hardhat node
+# echo ""
+# sleep 2
+
+echo "Starting up the frontend dev server..."
+npm run festart
 echo ""
 sleep 2
