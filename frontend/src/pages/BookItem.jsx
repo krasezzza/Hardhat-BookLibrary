@@ -1,4 +1,4 @@
-import { useParams, useNavigate, NavLink } from 'react-router-dom';
+import { useParams, useNavigate, useLocation, NavLink } from 'react-router-dom';
 import { useAccount, useContractReads } from "wagmi";
 import { useEffect, useState } from "react";
 
@@ -14,6 +14,9 @@ function BookItem() {
       navigate("/");
     }
   });
+
+  const location = useLocation();
+  const shouldReloadParent = location.state;
 
   const routeParams = useParams();
 
@@ -81,6 +84,16 @@ function BookItem() {
             </span>
           </div>
 
+          {bookLoaded.borrowers.length > 0 && (
+            <div className="mb-3">
+              <span>
+                This book has been ever borrowed by these users:
+              </span>
+              <br />
+              <span>{ bookLoaded.borrowers.toString().replace(',', ',\n') }</span>
+            </div>
+          )}
+
           <div className="mt-6 d-flex justify-content-between align-item-center">
             {bookLoaded.isUserKeepingNow && (
               <NavLink to={`/${ bookLoaded.id }/return`} 
@@ -99,6 +112,7 @@ function BookItem() {
             )}
 
             <NavLink to="/" 
+              state={ shouldReloadParent } 
               className="btn btn-secondary">
               Back
             </NavLink>

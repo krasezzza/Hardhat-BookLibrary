@@ -10,7 +10,6 @@ function BookList(props) {
   const { isConnected } = useAccount();
 
   const [ bookList, setBookList ] = useState([]);
-
   const [ isFailure, setIsFailure ] = useState("");
 
   const { data: booksData } = useContractReads({

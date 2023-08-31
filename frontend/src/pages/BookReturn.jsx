@@ -26,6 +26,7 @@ function BookReturn() {
 
   const routeParams = useParams();
 
+  const [ shouldReloadParent, setShouldReloadParent ] = useState(false);
   const [ isFailure, setIsFailure ] = useState("");
 
   const { config } = usePrepareContractWrite({
@@ -48,6 +49,7 @@ function BookReturn() {
   const handleBookReturn = (evt) => {
     evt.preventDefault();
     write(); // actual returning
+    setShouldReloadParent(true);
   }
 
   return (
@@ -67,6 +69,8 @@ function BookReturn() {
           </Button>
 
           <NavLink to={`/${ routeParams.bookId }`} 
+            state={ shouldReloadParent } 
+            
             className="btn btn-secondary">
             Back
           </NavLink>

@@ -26,6 +26,7 @@ function BookBorrow() {
 
   const routeParams = useParams();
 
+  const [ shouldReloadParent, setShouldReloadParent ] = useState(false);
   const [ isFailure, setIsFailure ] = useState("");
 
   const { config } = usePrepareContractWrite({
@@ -48,6 +49,7 @@ function BookBorrow() {
   const handleBookBorrow = (evt) => {
     evt.preventDefault();
     write(); // actual borrowing
+    setShouldReloadParent(true);
   }
 
   return (
@@ -67,6 +69,7 @@ function BookBorrow() {
           </Button>
 
           <NavLink to={`/${ routeParams.bookId }`} 
+            state={ shouldReloadParent } 
             className="btn btn-secondary">
             Back
           </NavLink>
