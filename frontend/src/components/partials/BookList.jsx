@@ -27,7 +27,7 @@ function BookList(props) {
   });
 
   useEffect(() => {
-    if (!bookList.length && booksData) {
+    if (booksData) {
       let booksArray = [];
 
       for (let i = 0; i < booksData.length; i++) {
@@ -42,7 +42,7 @@ function BookList(props) {
 
       setBookList(booksArray);
     }
-  }, [bookList, booksData]);
+  }, [booksData]);
 
   const renderBookList = (listItems) => {
     return listItems.map(item => (

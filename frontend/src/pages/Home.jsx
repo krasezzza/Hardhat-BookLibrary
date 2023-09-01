@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAccount, useContractRead } from "wagmi";
-import { useLocation, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import BookList from '../components/partials/BookList';
 
@@ -10,10 +10,6 @@ import { contractAddress } from '../utils';
 function Home() {
   const { isConnected } = useAccount();
 
-  const location = useLocation();
-  const [ shouldReloadCurrent, setShouldReloadCurrent ] = useState(location.state);
-
-  const [ isLoaded, setIsLoaded ] = useState(false);
   const [ isFailure, setIsFailure ] = useState("");
 
   const { data: bookIds, isLoading } = useContractRead({
@@ -27,14 +23,6 @@ function Home() {
       setIsFailure(error.message);
     },
   });
-
-  useEffect(() => {
-    setIsLoaded(!!bookIds);
-
-    if (!!shouldReloadCurrent) {
-      setShouldReloadCurrent(false);
-    }
-  }, [bookIds, shouldReloadCurrent, setShouldReloadCurrent]);
 
   return (
     <div className="container my-6">
@@ -51,7 +39,7 @@ function Home() {
 
             {isLoading && ( <div className="mt-2">Loading...</div> )}
 
-            {isLoaded ? (
+            {bookIds && bookIds.length ? (
               <BookList bookIds={ bookIds }></BookList>
             ) : (
               <div className="mt-6">No books available.</div>
