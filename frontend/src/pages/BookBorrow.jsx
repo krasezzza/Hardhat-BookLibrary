@@ -1,25 +1,18 @@
-import { useNavigate, useLocation, useParams, NavLink } from 'react-router-dom';
+import { useLocation, useParams, NavLink } from 'react-router-dom';
 import Button from '../components/ui/Button';
+import { useState } from "react";
 import { 
-  useAccount,
   usePrepareContractWrite, 
+  useWaitForTransaction, 
   useContractWrite, 
-  useWaitForTransaction 
+  useAccount
 } from 'wagmi';
-import { useEffect, useState } from "react";
 
 import contractJson from "../abi/BookLibrary.json";
 import { contractAddress } from '../utils';
 
 function BookBorrow() {
   const { isConnected } = useAccount();
-
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!isConnected) {
-      navigate("/");
-    }
-  });
 
   const location = useLocation();
   const bookTitle = location.state;

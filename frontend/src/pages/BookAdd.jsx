@@ -1,26 +1,19 @@
-import { useEffect, useState } from "react";
-import { useNavigate, NavLink } from 'react-router-dom';
-import { 
-  useAccount,
-  usePrepareContractWrite, 
-  useContractWrite, 
-  useWaitForTransaction 
-} from 'wagmi';
-import Form from 'react-bootstrap/Form';
 import Button from '../components/ui/Button';
+import { NavLink } from 'react-router-dom';
+import Form from 'react-bootstrap/Form';
+import { useState } from "react";
+import { 
+  usePrepareContractWrite, 
+  useWaitForTransaction, 
+  useContractWrite, 
+  useAccount
+} from 'wagmi';
 
 import contractJson from "../abi/BookLibrary.json";
 import { contractAddress } from '../utils';
 
 function BookAdd() {
   const { isConnected } = useAccount();
-
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!isConnected) {
-      navigate("/");
-    }
-  });
 
   const [bookForm, setBookForm] = useState({
     title: '',

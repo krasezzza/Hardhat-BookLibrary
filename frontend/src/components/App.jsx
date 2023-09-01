@@ -12,6 +12,7 @@ import BookItem from '../pages/BookItem';
 import BookBorrow from '../pages/BookBorrow';
 import BookReturn from '../pages/BookReturn';
 import Styleguide from '../pages/Styleguide';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
   const { publicClient, webSocketPublicClient } = configureChains(
@@ -35,10 +36,26 @@ function App() {
           <div className="main">
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/add" element={<BookAdd />} />
-                <Route path="/:bookId" element={<BookItem />} />
-                <Route path="/:bookId/borrow" element={<BookBorrow />} />
-                <Route path="/:bookId/return" element={<BookReturn />} />
+                <Route path="/add" element={
+                  <ProtectedRoute>
+                    <BookAdd />
+                  </ProtectedRoute>
+                } />
+                <Route path="/:bookId" element={
+                  <ProtectedRoute>
+                    <BookItem />
+                  </ProtectedRoute>
+                } />
+                <Route path="/:bookId/borrow" element={
+                  <ProtectedRoute>
+                    <BookBorrow />
+                  </ProtectedRoute>
+                } />
+                <Route path="/:bookId/return" element={
+                  <ProtectedRoute>
+                    <BookReturn />
+                  </ProtectedRoute>
+                } />
                 <Route path="/styleguide" element={<Styleguide />} />
               </Routes>
           </div>

@@ -1,6 +1,6 @@
 import { useAccount, useContractReads } from "wagmi";
-import { useEffect, useState } from "react";
 import { NavLink } from 'react-router-dom';
+import { useState } from "react";
 import { ethers } from "ethers";
 
 import contractJson from "../../abi/BookLibrary.json";
@@ -9,7 +9,6 @@ import { contractAddress } from '../../utils';
 function BookList(props) {
   const { isConnected } = useAccount();
 
-  const [ bookList, setBookList ] = useState([]);
   const [ isFailure, setIsFailure ] = useState("");
 
   const { data: booksData } = useContractReads({
@@ -26,26 +25,25 @@ function BookList(props) {
     }))
   });
 
-  useEffect(() => {
-    if (booksData) {
-      let booksArray = [];
+  const renderBookList = (listItems) => {
+    let bookItems = [];
 
-      for (let i = 0; i < booksData.length; i++) {
-        if (booksData[i].status === "success") {
-          const bookResult = booksData[i].result;
-          booksArray.push({
+    for (let i = 0; i < listItems.length; i++) {
+      if (listItems[i].status === "success") {
+        const bookResult = listItems[i].result;
+        const bookResultId = ethers.solidityPackedKeccak256(["string"], [bookResult.title]);
+        const suchAnotherBook = bookItems.find(element => element.id === bookResultId);
+
+        if (!suchAnotherBook) {
+          bookItems.push({
             ...bookResult,
-            id: ethers.solidityPackedKeccak256(["string"], [bookResult.title])
+            id: bookResultId
           });
         }
       }
-
-      setBookList(booksArray);
     }
-  }, [booksData]);
 
-  const renderBookList = (listItems) => {
-    return listItems.map(item => (
+    return bookItems.map(item => (
       <li key={ item.id } className="py-2">
         <NavLink 
           to={`/${ item.id }`} 
@@ -58,15 +56,19 @@ function BookList(props) {
   };
 
   return (
-    <div className="container mt-4 mb-8">
-      <ul className="list-unstyled w-75 p-0">
-        <li className="d-flex justify-content-between align-item-center">
-          <strong>Title</strong>
-          <strong>Copies</strong>
-        </li>
+    <div className="container mt-6 mb-8">
+      {booksData && booksData.length ? (
+        <ul className="list-unstyled w-75 p-0">
+          <li className="d-flex justify-content-between align-item-center">
+            <strong>Title</strong>
+            <strong>Copies</strong>
+          </li>
 
-        { renderBookList(bookList) }
-      </ul>
+          { renderBookList(booksData) }
+        </ul>
+      ) : (
+        <div className="mt-6">No books available.</div>
+      )}
 
       {!!isFailure && (
         <div className="mt-6">

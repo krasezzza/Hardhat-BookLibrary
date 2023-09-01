@@ -37,12 +37,10 @@ function Home() {
               Add book
             </NavLink>
 
-            {isLoading && ( <div className="mt-2">Loading...</div> )}
-
-            {bookIds && bookIds.length ? (
-              <BookList bookIds={ bookIds }></BookList>
+            {isLoading ? (
+              <div className="mt-2">Loading...</div>
             ) : (
-              <div className="mt-6">No books available.</div>
+              <BookList bookIds={ bookIds }></BookList>
             )}
           </div>
         )}
